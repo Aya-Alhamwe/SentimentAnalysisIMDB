@@ -209,7 +209,7 @@ async def read_root():
 
     <script>
         // Array of movie images
-        const movieImages = ["p1.jpg"", "p2.jpg", "p3.jpg"];
+        const movieImages = ["p1.jpg", "p2.jpg", "p3.jpg"];
         let currentImageIndex = 0;
 
 
