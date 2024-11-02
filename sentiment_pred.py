@@ -276,4 +276,16 @@ async def predict(review: Review):
   
     sentiment = "Positive" if prediction[0] == 1 else "Negative"
 
-    return {"sentiment": sentiment}
+    
+    if sentiment == "Positive":
+        message = "Glad you enjoyed the movie! Thanks for sharing your positive thoughts."
+        recommendation = "We recommend checking out similar feel-good movies!"
+    else:
+        message = "Thanks for your feedback! Even negative experiences can guide you to better films."
+        recommendation = "Consider exploring different genres for a better experience!"
+    
+    return {
+        "sentiment": sentiment,
+        "message": message,
+        "recommendation": recommendation
+    }
