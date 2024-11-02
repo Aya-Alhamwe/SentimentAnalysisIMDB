@@ -237,7 +237,7 @@ async def read_root():
             const resultDiv = document.getElementById("result");
 
             // Send POST request to the predict endpoint
-            const response = await fetch("https://sentiment_pred.onrender.com/predict/", {
+           const response = await fetch("/predict/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
