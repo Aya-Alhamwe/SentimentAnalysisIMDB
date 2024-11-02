@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 
 #load data :) 
-numRows = 30000
+numRows = 9000
 data = pd.read_csv("IMDB Dataset.csv", header=0, nrows=numRows)
 
 
