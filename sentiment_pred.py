@@ -257,9 +257,8 @@ async def read_root():
 
             // Display the result
             resultDiv.style.display = "block";
-            resultDiv.innerHTML = `<strong>Sentiment:</strong> <span style="color: ${sentimentColor};">${data.sentiment}</span>`; 
-            <strong>Message:</strong> ${data.message}<br>
-            <strong>Recommendation:</strong> ${data.recommendation}
+            resultDiv.innerHTML = `<strong>Sentiment:</strong> <span style="color:${sentimentColor}">${data.sentiment}</span><br><strong style="color:white;">Message:</strong> ${data.message}<br><strong style="color:white;">Recommendation:</strong> ${data.recommendation}`;
+
         }
     </script>
 </body>
