@@ -188,7 +188,7 @@ async def read_root():
         <h1>Sentiment Analysis for Movies</h1>
 
         <!-- Movie Image Section -->
-        <img id="movie-image" class="movie-image" src="https://github.com/Aya-Alhamwe/SentimentAnalysisIMDB/blob/main/p1.jpg" alt="Movie Poster">
+        <img id="movie-image" class="movie-image" src="https://raw.githubusercontent.com/Aya-Alhamwe/SentimentAnalysisIMDB/main/p1.jpg"  alt="Movie Poster">
 
         <div class="button-group">
             <button onclick="previousImage()">Previous Movie</button>
@@ -209,7 +209,12 @@ async def read_root():
 
     <script>
         // Array of movie images
-        const movieImages = ["https://github.com/Aya-Alhamwe/SentimentAnalysisIMDB/blob/main/p1.jpg", "https://github.com/Aya-Alhamwe/SentimentAnalysisIMDB/blob/main/p2.jpg", "https://github.com/Aya-Alhamwe/SentimentAnalysisIMDB/blob/main/p1.jpg"];
+       const movieImages = [
+    "https://raw.githubusercontent.com/Aya-Alhamwe/SentimentAnalysisIMDB/main/p1.jpg",
+    "https://raw.githubusercontent.com/Aya-Alhamwe/SentimentAnalysisIMDB/main/p2.jpg",
+    "https://raw.githubusercontent.com/Aya-Alhamwe/SentimentAnalysisIMDB/main/p3.jpg"
+];
+
         let currentImageIndex = 0;
 
 
