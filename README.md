@@ -1,8 +1,7 @@
 # 🎬 Movie Review Sentiment Analysis
 
 Welcome to the Movie Review Sentiment Analysis project! This application leverages machine learning techniques to analyze and determine the sentiment of movie reviews from the IMDB dataset. It effectively classifies reviews as either positive or negative.
-## 🌐 [My Demo Link project](https://sentimentanalysisimdb1.onrender.com)
-
+## 🌐 My Demo Link project --> https://sentimentanalysisimdb1.onrender.com
 ## 📚 Overview
 
 This application is built using Python with the following technologies:
