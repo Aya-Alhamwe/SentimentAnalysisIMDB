@@ -234,7 +234,7 @@ async def read_root():
             const reviewText = document.getElementById("review").value;
             const resultDiv = document.getElementById("result");
 
-            const response = await fetch("http://localhost:8000/predict/", {
+            const response = await fetch("https://sentiment_pred.onrender.com/predict/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
