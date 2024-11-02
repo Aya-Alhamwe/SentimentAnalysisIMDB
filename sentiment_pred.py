@@ -5,62 +5,67 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import classification_report
 import nltk
 import re
-from fastapi import FastAPI    
+from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 
-#load data :) 
+# Load the dataset :)
 numRows = 9000
 data = pd.read_csv("IMDB Dataset.csv", header=0, nrows=numRows)
-
 
 
 nltk.download('stopwords')
 stop_words = set(nltk.corpus.stopwords.words('english'))
 
+
 def clean_text(text):
-    text = text.lower()  
+    text = text.lower() 
     text = re.sub(r'<br />', '', text)  
-    text = re.sub(r'http\S+', '', text) 
+    text = re.sub(r'http\S+', '', text)  
     text = re.sub(r'[^\w\s]', '', text)  
+    # Remove stop words
     text = ' '.join([word for word in text.split() if word not in stop_words]) 
     return text
+
 
 data['clean_review'] = data['review'].apply(clean_text)
 data.drop(columns='review', inplace=True)
 data['sentiment'] = data['sentiment'].map({'positive': 1, 'negative': 0})
 
+
 X = data['clean_review']
 y = data['sentiment']
 
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Vectorize the text data
+
 vectorizer = CountVectorizer()
 X_train_vec = vectorizer.fit_transform(X_train)
 
-# Train the model
+
 model = MultinomialNB()
 model.fit(X_train_vec, y_train)
 
-# Display the classification report
+
 y_pred = model.predict(X_train_vec)
 report = classification_report(y_train, y_pred, target_names=['Negative', 'Positive'])
 print(report)
 
 #***********************************FastAPI :)***************************************************
-
 app = FastAPI()
 app.add_middleware(CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["*"],  
+    allow_methods=["*"],  
+    allow_headers=["*"], 
 )
+
 
 class Review(BaseModel):
     text: str
 
+# Root endpoint that returns an HTML page
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
     return """
@@ -72,6 +77,7 @@ async def read_root():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sentiment Analysis</title>
     <style>
+        /* Styles for the HTML page */
         body {
             font-family: 'Arial', sans-serif;
             background: #696da7;
@@ -167,7 +173,6 @@ async def read_root():
             from {
                 opacity: 0;
             }
-
             to {
                 opacity: 1;
             }
@@ -187,19 +192,16 @@ async def read_root():
     <div class="container">
         <h1>Sentiment Analysis for Movies</h1>
 
-        <!-- Movie Image Section -->
-        <img id="movie-image" class="movie-image" src="https://raw.githubusercontent.com/Aya-Alhamwe/SentimentAnalysisIMDB/main/p1.jpg"  alt="Movie Poster">
+        <img id="movie-image" class="movie-image" src="https://raw.githubusercontent.com/Aya-Alhamwe/SentimentAnalysisIMDB/main/p1.jpg" alt="Movie Poster">
 
         <div class="button-group">
             <button onclick="previousImage()">Previous Movie</button>
             <button onclick="nextImage()">Next Movie</button>
         </div>
 
-        <!-- Review Section -->
         <textarea id="review" placeholder="Enter your movie review here..."></textarea>
         <button onclick="submitReview()">Analyze Sentiment</button>
 
-        <!-- Result Display Section -->
         <div id="result" class="result" style="display:none;"></div>
     </div>
 
@@ -209,11 +211,11 @@ async def read_root():
 
     <script>
         // Array of movie images
-       const movieImages = [
-    "https://raw.githubusercontent.com/Aya-Alhamwe/SentimentAnalysisIMDB/main/p1.jpg",
-    "https://raw.githubusercontent.com/Aya-Alhamwe/SentimentAnalysisIMDB/main/p2.jpg",
-    "https://raw.githubusercontent.com/Aya-Alhamwe/SentimentAnalysisIMDB/main/p3.jpg"
-];
+        const movieImages = [
+            "https://raw.githubusercontent.com/Aya-Alhamwe/SentimentAnalysisIMDB/main/p1.jpg",
+            "https://raw.githubusercontent.com/Aya-Alhamwe/SentimentAnalysisIMDB/main/p2.jpg",
+            "https://raw.githubusercontent.com/Aya-Alhamwe/SentimentAnalysisIMDB/main/p3.jpg"
+        ];
 
         let currentImageIndex = 0;
 
@@ -223,20 +225,21 @@ async def read_root():
             document.getElementById("movie-image").src = movieImages[currentImageIndex];
         }
 
-
+       
         function previousImage() {
             currentImageIndex = (currentImageIndex - 1 + movieImages.length) % movieImages.length;
             document.getElementById("movie-image").src = movieImages[currentImageIndex];
         }
 
-
+     
         async function submitReview() {
             const reviewText = document.getElementById("review").value;
             const resultDiv = document.getElementById("result");
 
-            const response = await fetch("https://sentimentanalysisimdb1.onrender.com/predict/", {
+            // Send POST request to the predict endpoint
+            const response = await fetch("https://sentiment_pred.onrender.com/predict/", {
                 method: "POST",
-                headers: {https://
+                headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ text: reviewText })
@@ -244,46 +247,33 @@ async def read_root():
 
             const data = await response.json();
 
-
+            // Set the sentiment color based on prediction
             let sentimentColor;
             if (data.sentiment === "Positive") {
-                sentimentColor = "#4caf50";
+                sentimentColor = "#4caf50"; // Green for positive
             } else {
-                sentimentColor = "#ff5252";
+                sentimentColor = "#ff5252"; // Red for negative
             }
 
+            // Display the result
             resultDiv.style.display = "block";
-            resultDiv.innerHTML = `<strong>Sentiment:</strong> <span style="color:${sentimentColor}">${data.sentiment}</span><br><strong style="color:white;">Message:</strong> ${data.message}<br><strong style="color:white;">Recommendation:</strong> ${data.recommendation}`;
+            resultDiv.innerHTML = `<strong>Sentiment:</strong> <span style="color: ${sentimentColor};">${data.sentiment}</span>`;
         }
     </script>
-
 </body>
 
 </html>
     """
 
+
 @app.post("/predict/")
-async def predict_sentiment(review: Review):
+async def predict(review: Review):
     
-    review_vec = vectorizer.transform([review.text])
-    prediction = model.predict(review_vec)
+    cleaned_text = clean_text(review.text)
+    vectorized_text = vectorizer.transform([cleaned_text])  
+    prediction = model.predict(vectorized_text) 
+
+  
     sentiment = "Positive" if prediction[0] == 1 else "Negative"
-    
-    # Customize messages based on sentiment
-    if sentiment == "Positive":
-        message = "Glad you enjoyed the movie! Thanks for sharing your positive thoughts."
-        recommendation = "We recommend checking out similar feel-good movies!"
-    else:
-        message = "Thanks for your feedback! Even negative experiences can guide you to better films."
-        recommendation = "Consider exploring different genres for a better experience!"
-    
-    return {
-        "sentiment": sentiment,
-        "message": message,
-        "recommendation": recommendation
-    }
 
-
-
-
-
+    return {"sentiment": sentiment}
