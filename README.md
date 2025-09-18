@@ -1,20 +1,29 @@
 # 🎬 Movie Review Sentiment Analysis
 
-This project uses a **predictive model** designed for **sentiment analysis** on **IBM movie reviews**. The model analyzes text input and predicts whether the sentiment behind the movie review is positive or negative. It is packaged using **Docker** to make it easy to run in different environments without worrying about dependencies or system configurations.
-The model is deployed via a Docker container and exposes an **API** on port **8000**, allowing users to send movie review text and receive sentiment predictions.
+📚 Overview
+This project uses a predictive model designed for sentiment analysis on IBM movie reviews.
+The model analyzes text input and predicts whether the sentiment behind the movie review is positive or negative.
+
+It is packaged using Docker to make it easy to run in different environments without worrying about dependencies or system configurations.
+The model is deployed via a Docker container and exposes an API on port 8000, allowing users to send movie review text and receive sentiment predictions.
 
 ## 🌐 My Demo Link project --> https://sentimentanalysisimdb.onrender.com
+
 ## 📚 Overview
 
-This application is built using Python with the following technologies:
+🛠️ Technologies Used
 
-- **Pandas** for data manipulation
-- **Scikit-Learn** for machine learning models, specifically using the Multinomial Naive Bayes algorithm
-- **FastAPI** for building the web application
-- **HTML/CSS** for the front-end design
+Python as the core programming language
+
+Pandas for data manipulation
+
+Scikit-Learn (Multinomial Naive Bayes) for machine learning
+
+FastAPI for building the web application
+
+HTML/CSS for front-end design
 
 ## Features ✨
-
 - Dockerized sentiment analysis model for easy deployment 🚢
 - Predicts if movie reviews are **positive** or **negative** based on the text input 🎥
 - API endpoint for making predictions 📡
