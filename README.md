@@ -32,6 +32,9 @@ HTML/CSS for front-end design
 - Exposed port: **8000** (can be configured)
 - Supports both local and cloud deployments ☁️
 
+  ---
+
+
 ## How to Use 🛠️
 
 Follow these steps to get the application running on your local machine:
