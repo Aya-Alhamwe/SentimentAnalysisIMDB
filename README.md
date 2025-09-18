@@ -23,8 +23,8 @@ Scikit-Learn (Multinomial Naive Bayes) for machine learning
 FastAPI for building the web application
 
 HTML/CSS for front-end design
----
 
+---
 ## Features ✨
 - Dockerized sentiment analysis model for easy deployment 🚢
 - Predicts if movie reviews are **positive** or **negative** based on the text input 🎥
