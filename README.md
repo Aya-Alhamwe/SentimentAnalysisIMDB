@@ -1,6 +1,6 @@
 # 🎬 Movie Review Sentiment Analysis
 
-📚 Overview
+## 📚 Overview
 This project uses a predictive model designed for sentiment analysis on IBM movie reviews.
 The model analyzes text input and predicts whether the sentiment behind the movie review is positive or negative.
 
