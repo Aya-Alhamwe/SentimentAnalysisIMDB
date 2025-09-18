@@ -7,11 +7,12 @@ The model analyzes text input and predicts whether the sentiment behind the movi
 It is packaged using Docker to make it easy to run in different environments without worrying about dependencies or system configurations.
 The model is deployed via a Docker container and exposes an API on port 8000, allowing users to send movie review text and receive sentiment predictions.
 
+---
+
 ## 🌐 My Demo Link project --> https://sentimentanalysisimdb.onrender.com
 
-## 📚 Overview
 
-🛠️ Technologies Used
+## 🛠️ Technologies Used
 
 Python as the core programming language
 
@@ -22,6 +23,7 @@ Scikit-Learn (Multinomial Naive Bayes) for machine learning
 FastAPI for building the web application
 
 HTML/CSS for front-end design
+---
 
 ## Features ✨
 - Dockerized sentiment analysis model for easy deployment 🚢
